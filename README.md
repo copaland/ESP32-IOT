@@ -21,7 +21,7 @@
 |4|	A2 |LM35d 	온도 측정|
 |5|	A3 |J3|
 
-## wokwi .com
+## VScode wokwi 시뮬레이션
 
 ### 1. Wokwi Simulator 설치
 
@@ -29,7 +29,7 @@ VScode 확장에서 Wokwi Simulator 검색 후 설치
 
 ### 2. wokwi.com
 
-포트에 맞게 회로 그리고, 
+포트에 맞게 회로를 작성하고, 
 아래 2개의 파일을 VScode 프로젝트의 루트에 붙여 넣기
 
 ### diagram.json
