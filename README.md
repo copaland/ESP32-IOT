@@ -54,8 +54,8 @@ ESP32-S3
 ```
 [wokwi]
 version = 1
-firmware = ".pio/build/esp32-s3-devkitc-1/firmware.bin"
 elf = ".pio/build/esp32-s3-devkitc-1/firmware.elf"
+firmware = ".pio/build/esp32-s3-devkitc-1/firmware.bin"
 
 # Forward http://localhost:8180 to port 80 on the simulated ESP32:
 [[net.forward]]
