@@ -21,14 +21,22 @@
 |4|	A2 |LM35d 	온도 측정|
 |5|	A3 |J3|
 
-## wokwi.com
+## wokwi .com
 
-아래 2개의 파일을 VScode 프로젝트에 붙여 넣기
+### 1. Wokwi Simulator 설치
+
+VScode 확장에서 Wokwi Simulator 검색 후 설치
+
+### 2. wokwi.com
+
+포트에 맞게 회로 그리고, 
+아래 2개의 파일을 VScode 프로젝트의 루트에 붙여 넣기
 
 ### diagram.json
-회로 연결하고 diagram.json 파일 저장하여   
+wokwi.com에서 회로 연결하고 생성된 diagram.json 파일 저장하여 사용  
 
 ### wokwi.toml
+
 ```
 [wokwi]
 version = 1
