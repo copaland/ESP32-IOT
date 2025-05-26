@@ -37,6 +37,7 @@ wokwi.com에서 회로 연결하고 생성된 diagram.json 파일 저장하여 �
 
 ### wokwi.toml
 
+ESP32
 ```
 [wokwi]
 version = 1
@@ -47,4 +48,18 @@ firmware = ".pio/build/esp32/firmware.bin"
 [[net.forward]]
 from = "localhost:8180"
 to = "target:80"
+```
+
+ESP32-S3
+```
+[wokwi]
+version = 1
+firmware = ".pio/build/esp32-s3-devkitc-1/firmware.bin"
+elf = ".pio/build/esp32-s3-devkitc-1/firmware.elf"
+
+# Forward http://localhost:8180 to port 80 on the simulated ESP32:
+[[net.forward]]
+from = "localhost:8180"
+to = "target:80"
+protocol = "http"
 ```
