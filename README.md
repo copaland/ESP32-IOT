@@ -1,27 +1,4 @@
-## Easy Module Shield V1 
-
-| S3 | UNO | 설명 |
-| -------- | -------- | -------- |
-|44|	D0 |rx |
-|43|	D1 | tx |
-|8|	D2 |SW1  버튼 |	
-|9|	D3 |SW2  버튼 |	
-|10|	D4 |DHT11 온도 측정|	
-|11|	D5 |Buzzer 알람|	
-|12|	D6 | IR Receiver 적외선 리모컨| 
-|13 |	D7 |J1|
-|14|	D8 |J2|
-|15|	D9 |RGB LED red	|
-|16|	D10 |RGB LED blue	|
-|21|	D11 |RGB LED green|
-|38|	D12 |LED2  빨강	LED|
-|47|	D13 |LED1 파랑	LED|
-|1|	A0 |POT 	가변 저항|
-|2|	A1 | Light 	조도 센서|
-|4|	A2 |LM35d 	온도 측정|
-|5|	A3 |J3|
-
-## VScode 사용
+## VScode 사용 아두이노 개발
 
 ### 1. VScode 설치
 [https://code.visualstudio.com/](https://code.visualstudio.com/)
