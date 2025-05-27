@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "author": "김랑기(전자명장)",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-s3-devkitc-1", "id": "esp", "top": -0.18, "left": 4.57, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 90.35,
+      "left": -67.2,
+      "attrs": { "value": "330" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 109.55,
+      "left": -67.2,
+      "attrs": { "value": "330" }
+    },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 240, "left": -39, "attrs": {} },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": 95,
+      "left": -134.1,
+      "rotate": 270,
+      "attrs": { "common": "cathode" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 176.75,
+      "left": -67.2,
+      "attrs": { "value": "330" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "r1:2", "esp:15", "magenta", [ "v0" ] ],
+    [ "r2:2", "esp:16", "blue", [ "h8.4", "v-9.6" ] ],
+    [ "r3:2", "esp:21", "green", [ "h104.4", "v9.6" ] ],
+    [ "r2:1", "rgb1:B", "blue", [ "v0" ] ],
+    [ "r3:1", "rgb1:G", "green", [ "v0" ] ],
+    [ "rgb1:R", "r1:1", "magenta", [ "v0", "h28.8", "v-48" ] ],
+    [ "esp:GND.1", "gnd1:GND", "black", [ "h0" ] ],
+    [ "rgb1:COM", "gnd1:GND", "black", [ "h9.2", "v95.9", "h57.6" ] ]
+  ],
+  "dependencies": {}
+}
