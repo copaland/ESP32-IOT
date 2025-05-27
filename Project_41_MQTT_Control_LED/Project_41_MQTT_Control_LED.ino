@@ -9,8 +9,8 @@
 #include <PubSubClient.h>  // Include MQTT client libraries for connecting and managing MQTT messages
 
 // Wi-Fi credentials
-const char* ssid = "copaland";    // Wi-Fi SSID, network name
-const char* password = "24868080"; // Wi-Fi passwords
+const char* ssid = "SSID";    // Wi-Fi SSID, network name
+const char* password = "PASSWORD"; // Wi-Fi passwords
 
 // MQTT broker
 const char* mqtt_broker = "broker.hivemq.com"; // a public Mosquitto MQTT broker
