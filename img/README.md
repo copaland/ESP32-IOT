@@ -27,3 +27,9 @@
 
 ## ESP32-S3 Pinout
 ![](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/_images/ESP32-S3_DevKitC-1_pinlayout_v1.1.jpg)
+
+## 참조 자료
+
+### Click on the link to download the code file: [Download Arduino C Codes file](https://docs.keyestudio.com/projects/KS5010/en/latest/_downloads/191e722b15708994ee9ed0f781c63490/Arduino-Codes.zip)
+
+### Click on the link to download the Libraries file: [Download Libraries file](https://docs.keyestudio.com/projects/KS5010/en/latest/_downloads/a5803546f373c72226766e5df1537d74/Arduino-Libraries.zip)
