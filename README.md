@@ -42,8 +42,8 @@ Gemini Code Assist
 
 탐색기 선택(왼쪽 위)  
 
-  a. 폴더 생성 : edu  
-  b. 파일 - 작업영역에 폴더추가  
+	a. 폴더 생성 : edu  
+	b. 파일 - 작업영역에 폴더추가  
   
 Platformio 선택  
 
