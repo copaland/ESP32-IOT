@@ -47,13 +47,13 @@ Gemini Code Assist
   
 Platformio 선택  
 
-  a. QUICK ACCESS - PIO Home - Open - Home  
-  b. +New Project  
-  c. Project Wizard  
-    - Name: e01-name, 
-    - Board: espressif esp32-s3-devkitc-1-N8, 
-    - Framework: Arduino  
-  d. Finish  
+	a. QUICK ACCESS - PIO Home - Open - Home  
+	b. +New Project  
+	c. Project Wizard  
+		- Name: e01-name,  
+		- Board: espressif esp32-s3-devkitc-1-N8, 
+		- Framework: Arduino  
+	d. Finish  
   
 Platformio.ini  
 ```
