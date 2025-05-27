@@ -41,14 +41,18 @@ Gemini Code Assist
 ### 3. 프로젝트 생성
 
 탐색기 선택(왼쪽 위)  
+
   a. 폴더 생성 : edu  
   b. 파일 - 작업영역에 폴더추가  
   
 Platformio 선택  
+
   a. QUICK ACCESS - PIO Home - Open - Home  
   b. +New Project  
   c. Project Wizard  
-    - Name: e01-name, Board: espressif esp32-s3-devkitc-1-N8, Framework: Arduino  
+    - Name: e01-name, 
+    - Board: espressif esp32-s3-devkitc-1-N8, 
+    - Framework: Arduino  
   d. Finish  
   
 Platformio.ini  
