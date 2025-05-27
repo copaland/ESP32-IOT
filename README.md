@@ -40,16 +40,18 @@ Gemini Code Assist
 
 ### 3. 프로젝트 생성
 
-탐색기 선택(왼쪽 위)
-  a. 폴더 생성 : edu
-  b. 파일 - 작업영역에 폴더추가
-Platformio 선택
-  a. QUICK ACCESS - PIO Home - Open - Home
-  b. +New Project
-  c. Project Wizard 
-    - Name: e01-name, Board: espressif esp32-s3-devkitc-1-N8, Framework: Arduino
-  d. Finish
-Platformio.ini
+탐색기 선택(왼쪽 위)  
+  a. 폴더 생성 : edu  
+  b. 파일 - 작업영역에 폴더추가  
+  
+Platformio 선택  
+  a. QUICK ACCESS - PIO Home - Open - Home  
+  b. +New Project  
+  c. Project Wizard  
+    - Name: e01-name, Board: espressif esp32-s3-devkitc-1-N8, Framework: Arduino  
+  d. Finish  
+  
+Platformio.ini  
 ```
 [env:esp32-s3-devkitc-1]
 platform = espressif32
@@ -63,24 +65,24 @@ lib_deps =
 ```
 ## VScode에 코드 작성
 
-프로젝트 폴더 - src - main.cpp 에서 코드 작성
-`#include <Arduino.h>` 가 포함되도록 한다.
+프로젝트 폴더 - src - main.cpp 에서 코드 작성  
+`#include <Arduino.h>` 가 포함되도록 한다.  
 
 ## VScode wokwi 시뮬레이션
 
-### 1. Wokwi Simulator 설치
-VScode 확장에서 Wokwi Simulator 검색 후 설치
+### 1. Wokwi Simulator 설치  
+VScode 확장에서 Wokwi Simulator 검색 후 설치  
 
 ### 2. wokwi.com
-포트에 맞게 회로를 작성하고, diagram.json 탭을 선택하고 복사한다.
-VScode에서는 아래 2개의 파일이 필요하므로 프로젝트의 루트에 붙여넣기한다.
+포트에 맞게 회로를 작성하고, diagram.json 탭을 선택하고 복사한다.  
+VScode에서는 아래 2개의 파일이 필요하므로 프로젝트의 루트에 붙여넣기한다.  
 
 ### 3. diagram.json
 wokwi.com에서 회로 연결하고 생성된 diagram.json 파일 저장하여 사용  
 
 ### 4. wokwi.toml
 
-ESP32
+ESP32  
 ```
 [wokwi]
 version = 1
@@ -92,7 +94,7 @@ from = "localhost:8180"
 to = "target:80"
 ```
 
-ESP32-S3
+ESP32-S3  
 ```
 [wokwi]
 version = 1
@@ -109,10 +111,10 @@ protocol = "http"
 ## 아두이노 라이브러리 추가
 
 ### 1. Platformio 선택
-a. QUICK ACCESS - PIO Home - Open - Libraries
-b. 적합한 라이브러리 선택
-c. 설치할 프로젝트 선택
+a. QUICK ACCESS - PIO Home - Open - Libraries  
+b. 적합한 라이브러리 선택  
+c. 설치할 프로젝트 선택  
 
 ### 2. 다운받은 라이브러리 설치
-a. 프로젝트 위에서 RMB - 파일 탐색기에 표시
-b. lib 폴더 안에 압축해제한 라이브러리를 폴더째 북사하여 붙여넣기한다.
+a. 프로젝트 위에서 RMB - 파일 탐색기에 표시  
+b. lib 폴더 안에 압축해제한 라이브러리를 폴더째 북사하여 붙여넣기한다.  
