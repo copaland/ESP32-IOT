@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32-S3 릴레이 제어</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='icon' href='data:,'>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' crossorigin='anonymous'>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nunito', Arial, sans-serif;
+      background: linear-gradient(135deg, #e3f0ff 0%, #eafff7 100%);
+      min-height: 100vh;
+      margin: 0;
+      color: #222;
+    }
+    .topnav {
+      background: linear-gradient(90deg, #2799e6 0%, #41e2a4 100%);
+      box-shadow: 0 2px 16px rgba(30,160,245,0.13);
+      padding: 0.7rem 0;
+      margin-bottom: 18px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .topnav h3 {
+      font-size: 1.8rem;  /* 글꼴 크기 약간 축소 */
+      color: #fff;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .container {
+      max-width: 300px;  /* 컨테이너 너비 360px로 축소 */
+      margin: 20px auto 0 auto;  /* 상단 여백 축소 */
+      padding: 20px 15px 18px 15px;  /* 패딩 약간 축소 */
+      background: #fff;
+      border-radius: 18px;  /* 테두리 반경 약간 축소 */
+      box-shadow: 0 6px 32px rgba(50, 150, 255, 0.12), 0 1.5px 8px rgba(44, 180, 160, 0.08);
+      text-align: center;
+    }
+    .cards {
+      display: grid;
+      grid-gap: 1.8rem;  /* 카드 간격 축소 */
+      grid-template-columns: 1fr;
+      max-width: 280px;  /* 카드 영역 축소 */
+      margin: 0 auto;
+    }
+    .card {
+      background: #fafcff;
+      border-radius: 16px;  /* 테두리 반경 약간 축소 */
+      box-shadow: 1px 1.5px 8px rgba(50,160,230,.07);
+      padding: 25px 10px;  /* 패딩 약간 축소 */
+      transition: box-shadow .22s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h4 {
+      margin: 0 0 18px 0;  /* 여백 축소 */
+      font-size: 1.3rem;  /* 글꼴 크기 약간 축소 */
+      font-weight: 700;
+      color: #40b2f7;
+      letter-spacing: -.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+    }
+    /* ---- 스위치 버튼 스타일링 - 크기 30% 축소 ---- */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 98px; /* 140px * 0.7 = 98px */
+      height: 52px; /* 74px * 0.7 = 51.8px, 반올림 */
+      vertical-align: middle;
+      margin: 0 0 14px 0;
+    }
+    .switch input {display: none;}
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #d0d7ec;
+      transition: .4s;
+      border-radius: 52px; /* 슬라이더 높이와 같게 설정 */
+      box-shadow: 0 2px 8px rgba(60,140,220,0.07);
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 41px; /* 58px * 0.7 = 40.6px, 반올림 */
+      width: 41px; /* 58px * 0.7 = 40.6px, 반올림 */
+      left: 6px; /* 8px * 0.7 = 5.6px, 반올림 */
+      bottom: 6px; /* 8px * 0.7 = 5.6px, 반올림 */
+      background: #fff;
+      transition: .4s;
+      border-radius: 50%;
+      box-shadow: 0 1.5px 6px #aaa3;
+    }
+    input:checked + .slider {
+      background: linear-gradient(90deg, #41e2a4 0%, #17c7ff 100%);
+      box-shadow: 0 4px 18px rgba(35,170,150,0.13);
+    }
+    input:checked + .slider:before {
+      transform: translateX(46px); /* 66px * 0.7 = 46.2px, 반올림 */
+      background: linear-gradient(135deg,#fff 75%,#eafff7 100%);
+    }
+    .slider:active:before {
+      width: 46px; /* 65px * 0.7 = 45.5px, 반올림 */
+    }
+    
+    /* 상태 피드백 스타일 */
+    .relay-label {
+      display: inline-block;
+      min-width: 80px;
+      font-size: 1.25rem;  /* 글꼴 크기 약간 축소 */
+      padding: 10px 0 0 0;  /* 패딩 축소 */
+      border-radius: 8px;  /* 테두리 반경 축소 */
+      transition: background 0.21s, color 0.22s;
+      font-weight: 700;
+      color: #17b3a5;
+      letter-spacing: 2px;
+    }
+    .relay-label.on {
+      color: #1ab36c;
+      background: #e5fff1;
+    }
+    .relay-label.off {
+      color: #d02e2e;
+      background: #ffeaea;
+    }
+    @media (max-width: 360px) {
+      .container {margin: 7vw 2vw 0 2vw; padding: 7vw 2vw;}
+      .topnav {max-width: 100%;}  /* 모바일에서는 전체 너비 사용 */
+      .cards {grid-gap: 1.3rem;}
+      .card {padding: 12px 1vw;}
+      .topnav h3 {font-size: 1.3rem;}
+      h4 {font-size: 1.07rem;}
+      .relay-label {font-size: 1.01rem; min-width: 60px;}
+      .switch {width: 62vw; max-width: 70vw; height: 35px;} /* 모바일 크기 조정 */
+      .slider:before {height: 25px; width: 25px; left: 5px; bottom: 5px;} /* 모바일 크기 조정 */
+      input:checked + .slider:before {transform: translateX(25px);} /* 모바일 크기 조정 */
+    }
+  </style>
+  
+  <!-- 자바스크립트 부분은 변경 없음 -->
+  <script>
+    // 토글 함수 - 서버에 상태 변경 요청 보내기
+    function toggleRelay(relay, value) {
+      // 코드 변경 없음
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/relay?relay=" + relay + "&value=" + value, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            console.log("릴레이 " + relay + " 상태 변경 성공: " + value);
+            // 성공 시 상태 즉시 갱신하면 차이가 줄어듭니다
+            updateRelayUI(relay, value);
+          } else {
+            console.log("릴레이 상태 변경 실패");
+            // 실패 시에는 UI 원상 복구
+            fetchRelayStates();
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    // 페이지 로드 시 서버에서 상태 가져와서 업데이트
+    function fetchRelayStates() {
+      // 코드 변경 없음
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/data", true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var data = JSON.parse(xhr.responseText);
+          
+          // 각 릴레이 상태 업데이트
+          for (var i = 1; i <= 2; i++) {
+            var state = data["relay" + i];
+            updateRelayUI(i, state);
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    // UI 상태 업데이트 함수
+    function updateRelayUI(relay, state) {
+      // 코드 변경 없음
+      var checkbox = document.getElementById("relay" + relay);
+      var label = document.getElementById("relaylbl" + relay);
+      
+      if (checkbox) checkbox.checked = state == 1;
+      
+      if (label) {
+        if (state == 1) {
+          label.innerHTML = "ON";
+          label.className = "relay-label on";
+        } else {
+          label.innerHTML = "OFF";
+          label.className = "relay-label off";
+        }
+      }
+    }
+
+    // 페이지 로드 시 초기화 및 상태 가져오기
+    window.onload = function() {
+      // 코드 변경 없음
+      fetchRelayStates();
+      // 주기적으로 상태 업데이트
+      setInterval(fetchRelayStates, 2000);
+    };
+  </script>
+</head>
+<body>
+<div class='topnav'>
+    <h3><i class="fas fa-broadcast-tower"></i> IoT CONTROL</h3>
+</div>
+<div class='container'>
+  <div class='cards'>
+    <div class='card'>
+      <h4><i class='fas fa-lightbulb'></i> 릴레이 1</h4>
+      <label class='switch'>
+        <input type='checkbox' id='relay1' onchange='toggleRelay(1, this.checked ? 1 : 0)'>
+        <span class='slider'></span>
+      </label>
+      <div id='relaylbl1' class='relay-label off'>OFF</div>
+    </div>
+    <div class='card'>
+      <h4><i class='fas fa-lightbulb'></i> 릴레이 2</h4>
+      <label class='switch'>
+        <input type='checkbox' id='relay2' onchange='toggleRelay(2, this.checked ? 1 : 0)'>
+        <span class='slider'></span>
+      </label>
+      <div id='relaylbl2' class='relay-label off'>OFF</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
