@@ -1,0 +1,68 @@
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h>
+#include <LittleFS.h>
+
+// Wi-Fi 설정 
+const char* ssid = "academy5"; // WiFi 정보
+const char* password = "";
+
+AsyncWebServer server(80); // 웹서버 포트 80
+
+void setup() {
+  Serial.begin(115200);
+  delay(300);
+  Serial.println("\n\n=== ESP32-S3 LittleFS Web Server 시작 ===\n");
+
+  // LittleFS 마운트
+  if (!LittleFS.begin(true)) {   // true = 실패 시 포맷 시도
+    Serial.println("LittleFS 마운트 실패!!!!");
+    while (1) delay(500);        // 여기서 멈춤
+  }
+  Serial.println("LittleFS 마운트 성공");
+
+  // LittleFS에 있는 파일 목록 출력 (디버깅용)
+  Serial.println("──── 파일 목록 ───────");
+  File root = LittleFS.open("/");
+  File file = root.openNextFile();
+  while (file) {
+    Serial.printf("  %s  (%d bytes)\n", file.name(), file.size());
+    file = root.openNextFile();
+  }
+  Serial.println("───────────────────────");
+
+  // Wi-Fi 연결
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.print("WiFi 연결 중");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\n연결 완료!");
+  Serial.print("IP 주소 → ");
+  Serial.println(WiFi.localIP());
+
+  // 루트 경로 (/) 접속 시 index.html 제공
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (LittleFS.exists("/index.html")) {
+      request->send(LittleFS, "/index.html", "text/html");
+    } else {
+      request->send(404, "text/plain", "파일이 없습니다 : /index.html");
+    }
+  });
+
+  // 404 처리
+  server.onNotFound([](AsyncWebServerRequest *request) {
+    request->send(404, "text/plain", "Not Found");
+  });
+
+  // 서버 시작
+  server.begin();
+  Serial.println("웹서버가 시작되었습니다 → http://" + WiFi.localIP().toString());
+}
+
+void loop() {
+  // 필요하면 여기에 다른 작업 추가
+  delay(10);
+}
