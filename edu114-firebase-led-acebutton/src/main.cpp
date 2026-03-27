@@ -7,7 +7,7 @@
 
 // 설정 상수
 #define DEBUG true                                           // 디버깅 플래그
-#define API_KEY "AIzaSyDYnZAOHlTLbKf8sMqEw8cvwYTkVHNEVaY"   // Firebase API 키
+#define API_KEY "xx"   // Firebase API 키
 #define DATABASE_URL "https://esp32-iot-8923e-default-rtdb.firebaseio.com/"
 #define FIREBASE_LED_PATH "/leds/led"                        // Firebase 경로
 #define WIFI_RETRY_COUNT 20                                  // WiFi 연결 재시도 횟수
@@ -17,7 +17,7 @@
 
 // WiFi 설정
 const char* ssid = "copaland";
-const char* password = "24868080";
+const char* password = "";
 
 // 핀 정의
 const int buttonPins[] = {8, 9};                            // 버튼 입력 핀
